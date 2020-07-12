@@ -1,7 +1,8 @@
 package server.api.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,10 +22,10 @@ public class Answer {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 
-    @NotBlank
+    @NotNull
     private String text;
 
-    @NotBlank
+    @NotNull
     private boolean correct;
 
 }

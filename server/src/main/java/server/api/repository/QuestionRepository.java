@@ -5,9 +5,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import server.api.model.Answer;
 import server.api.model.Question;
-
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 
 public interface QuestionRepository extends CrudRepository<Question, Integer> {
@@ -24,14 +24,15 @@ public interface QuestionRepository extends CrudRepository<Question, Integer> {
         answers.add(correctAnswer);
         answerRepository.save(correctAnswer);
 
-        for (String answer: json.findValuesAsText("incorrect_answers")) {
-            Answer wrongAnswer = new Answer(answer, false);
+        for (JsonNode answer: json.get("incorrect_answers")) {
+            Answer wrongAnswer = new Answer(answer.asText(), false);
             answers.add(wrongAnswer);
             answerRepository.save(wrongAnswer);
         }
 
         Question question = new Question(questionText, author, answers);
         return this.save(question);
+
     }
 
 }

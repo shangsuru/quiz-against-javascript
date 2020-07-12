@@ -4,7 +4,6 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -31,7 +30,7 @@ public class Question {
     @JoinColumn(name="question")
     private List<Answer> answers;
 
-    @NotBlank
+    @NotNull
     private String author;
 
 }

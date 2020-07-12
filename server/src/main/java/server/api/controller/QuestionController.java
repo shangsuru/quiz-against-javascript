@@ -6,20 +6,27 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.api.exception.QuestionFormatException;
+import server.api.model.Answer;
 import server.api.model.Question;
 import server.api.repository.AnswerRepository;
 import server.api.repository.QuestionRepository;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 
 @RestController
 public class QuestionController {
 
-    @Autowired
     private QuestionRepository questionRepository;
-    @Autowired
     private AnswerRepository answerRepository;
+
+    public QuestionController(QuestionRepository questionRepository, AnswerRepository answerRepository) {
+        this.questionRepository = questionRepository;
+        this.answerRepository = answerRepository;
+    }
 
     @ExceptionHandler(QuestionFormatException.class)
     public ResponseEntity<String> handleQuestionFormatException(QuestionFormatException e) {
@@ -34,6 +41,7 @@ public class QuestionController {
     @PostMapping("/questions")
     @ResponseStatus(HttpStatus.CREATED)
     public Question createQuestion(@RequestBody JsonNode json) {
+
         if (!(json.has("question") && json.has("correct_answer") && json.has("incorrect_answers") && json.has("author"))) {
             throw new QuestionFormatException("Request body has to contain question, correct_answer, incorrect_answers, author fields");
         }
@@ -43,6 +51,7 @@ public class QuestionController {
         }
 
         return questionRepository.saveQuestionWithAnswers(json, answerRepository);
+
     }
 
     @DeleteMapping("/questions/{id}")
