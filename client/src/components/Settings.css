@@ -1,0 +1,11 @@
+#questionList {
+  height: 60vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+@media only screen and (max-width: 900px) {
+  #questionList {
+    display: none;
+  }
+}
