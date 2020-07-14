@@ -1,20 +1,14 @@
 package server.api.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.api.exception.QuestionFormatException;
-import server.api.model.Answer;
 import server.api.model.Question;
 import server.api.repository.AnswerRepository;
 import server.api.repository.QuestionRepository;
-
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.Map;
 
 
 @RestController

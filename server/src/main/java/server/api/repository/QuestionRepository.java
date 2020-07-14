@@ -7,7 +7,6 @@ import server.api.model.Answer;
 import server.api.model.Question;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 
 public interface QuestionRepository extends CrudRepository<Question, Integer> {
