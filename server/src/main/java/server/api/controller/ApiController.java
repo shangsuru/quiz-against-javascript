@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.client.WebClient;
-import server.api.repository.AnswerRepository;
+import server.api.repository.IncorrectAnswerRepository;
 import server.api.repository.QuestionRepository;
 
 
@@ -15,7 +15,7 @@ public class ApiController {
     @Autowired
     private QuestionRepository questionRepository;
     @Autowired
-    private AnswerRepository answerRepository;
+    private IncorrectAnswerRepository incorrectAnswerRepository;
 
     @GetMapping("/api")
     public JsonNode fetchExternalQuestions() {
@@ -23,7 +23,7 @@ public class ApiController {
         JsonNode results =  client.get().retrieve().bodyToMono(JsonNode.class).block().get("results");
 
         for (JsonNode json: results) {
-            questionRepository.saveQuestionWithAnswers(json, answerRepository);
+            questionRepository.saveQuestionWithAnswers(json, incorrectAnswerRepository);
         }
 
         return results;

@@ -51,7 +51,7 @@ const Settings = () => {
   const handleDelete = id => {
     dispatch({
       type: "questionList",
-      payload: state.questionList.filter(question => question._id !== id)
+      payload: state.questionList.filter(question => question.id !== id)
     });
     api.delete(`/questions/${id}`);
     if (state.questionList.length === 1) {
@@ -66,24 +66,24 @@ const Settings = () => {
   // delete the question and load the data of the question into the text fields for editing
   const handleEdit = id => {
     let questionToBeEdited = state.questionList.filter(
-      question => question._id === id
+      question => question.id === id
     )[0];
     dispatch({ type: "question", payload: questionToBeEdited.question });
     dispatch({
       type: "correctAnswer",
-      payload: questionToBeEdited.correctAnswer
+      payload: questionToBeEdited.correct_answer
     });
     dispatch({
       type: "wrong_1",
-      payload: questionToBeEdited.incorrectAnswers[0]
+      payload: questionToBeEdited.incorrect_answers[0]
     });
     dispatch({
       type: "wrong_2",
-      payload: questionToBeEdited.incorrectAnswers[1]
+      payload: questionToBeEdited.incorrect_answers[1]
     });
     dispatch({
       type: "wrong_3",
-      payload: questionToBeEdited.incorrectAnswers[2]
+      payload: questionToBeEdited.incorrect_answers[2]
     });
     dispatch({ type: "author", payload: questionToBeEdited.author });
     handleDelete(id);
@@ -95,9 +95,9 @@ const Settings = () => {
       <Question
         handleDelete={handleDelete}
         handleEdit={handleEdit}
-        key={question._id}
+        key={question.id}
         question={question.question}
-        id={question._id}
+        id={question.id}
       />
     );
   });

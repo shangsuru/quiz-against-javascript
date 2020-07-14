@@ -37,8 +37,8 @@ const App = () => {
   // distribute answers randomly on buttons
   const getAnswers = question => {
     let answers = [];
-    answers.push(question.correctAnswer);
-    question.incorrectAnswers.forEach(text => {
+    answers.push(question.correct_answer);
+    question.incorrect_answers.forEach(text => {
       answers.push(text);
     });
     return shuffle(answers);
@@ -75,14 +75,14 @@ const App = () => {
       let indexOfMostFrequent = frequencies.indexOf(Math.max(...frequencies));
       let chosenAnswer = currentAnswers[indexOfMostFrequent];
       setJsAnswer(chosenAnswer);
-      if (chosenAnswer === currentQuestion.correctAnswer) {
+      if (chosenAnswer === currentQuestion.correct_answer) {
         setJsPoints(jsPoints + 1);
       }
     } catch (error) {
       // fallback option if api is not reachable: random choice
       let chosenAnswer = currentAnswers[Math.floor(Math.random() * 3)];
       setJsAnswer(chosenAnswer);
-      if (chosenAnswer === currentQuestion.correctAnswer) {
+      if (chosenAnswer === currentQuestion.correct_answer) {
         setJsPoints(jsPoints + 1);
       }
     }
@@ -206,7 +206,7 @@ const App = () => {
                   <QuizButton
                     handleClick={() =>
                       currentAnswers[0] ===
-                      questions[currentQuestionNumber - 1].correctAnswer
+                      questions[currentQuestionNumber - 1].correct_answer
                         ? correctAnswer()
                         : wrongAnswer()
                     }
@@ -215,7 +215,7 @@ const App = () => {
                   <QuizButton
                     handleClick={() =>
                       currentAnswers[1] ===
-                      questions[currentQuestionNumber - 1].correctAnswer
+                      questions[currentQuestionNumber - 1].correct_answer
                         ? correctAnswer()
                         : wrongAnswer()
                     }
@@ -224,7 +224,7 @@ const App = () => {
                   <QuizButton
                     handleClick={() =>
                       currentAnswers[2] ===
-                      questions[currentQuestionNumber - 1].correctAnswer
+                      questions[currentQuestionNumber - 1].correct_answer
                         ? correctAnswer()
                         : wrongAnswer()
                     }
@@ -233,7 +233,7 @@ const App = () => {
                   <QuizButton
                     handleClick={() =>
                       currentAnswers[3] ===
-                      questions[currentQuestionNumber - 1].correctAnswer
+                      questions[currentQuestionNumber - 1].correct_answer
                         ? correctAnswer()
                         : wrongAnswer()
                     }
@@ -260,7 +260,7 @@ const App = () => {
                 <div className="wrong notifier">
                   Wrong! The correct answer was:
                   <br />
-                  {questions[currentQuestionNumber - 1].correctAnswer}
+                  {questions[currentQuestionNumber - 1].correct_answer}
                 </div>
                 <QuizButton handleClick={nextQuestion} text="Next" />
                 <div style={{ textAlign: "center", fontWeight: "bold" }}>
