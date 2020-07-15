@@ -17,21 +17,18 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import server.api.dto.QuestionDTO;
-import server.api.model.Question;
 import server.api.repository.QuestionRepository;
-
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThat;
+
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ApiApplicationTests {
+
+    enum Mode { NORMAL, MISSING_FIELD, NOT_ENOUGH_ANSWERS }
 
     @LocalServerPort
     private int port;
@@ -115,8 +112,6 @@ class ApiApplicationTests {
         assertThat(questionRepository.findById(id).isPresent()).isFalse();
     }
 
-    enum Mode { NORMAL, MISSING_FIELD, NOT_ENOUGH_ANSWERS }
-
     private HttpEntity<String> getQuestionToPost(Mode mode) throws JSONException {
         JSONObject question = new JSONObject();
         question.put("question", "Test is working?");
@@ -141,6 +136,5 @@ class ApiApplicationTests {
         headers.setContentType(MediaType.APPLICATION_JSON);
         return new HttpEntity<String>(question.toString(), headers);
     }
-
 
 }
