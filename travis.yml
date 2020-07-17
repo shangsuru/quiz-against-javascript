@@ -1,0 +1,12 @@
+sudo: required
+services:
+  - docker
+
+after_success:
+  - docker build -t shangsuru/quiz-client ./client
+  - docker build -t shangsuru/quiz-nginx ./nginx
+  - docker build -t shangsuru/quiz-server ./server
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push shangsuru/quiz-client
+  - docker push shangsuru/quiz-nginx
+  - docker push shangsuru/quiz-server
